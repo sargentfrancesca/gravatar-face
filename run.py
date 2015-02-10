@@ -36,13 +36,14 @@ def getHashUrl(aobject):
 
 	for filename in os.listdir("."):
 		if filename.startswith("face"):
-			os.rename(filename, 'img/'+a.username+'_face_'+str(ts)+'.png')
+			os.rename(filename, 'img/raw/'+a.username+'_face_'+str(ts)+'.png')
 		else:
 			continue
 	
 	
-	urllib.urlretrieve(identicon, 'img/'+a.username+'_identicon_'+str(ts)+'.png')
-	urllib.urlretrieve(retro, 'img/'+a.username+'_retro_'+str(ts)+'.png')
+	urllib.urlretrieve(identicon, 'img/raw/'+a.username+'_identicon_'+str(ts)+'.png')
+	urllib.urlretrieve(retro, 'img/raw/'+a.username+'_retro_'+str(ts)+'.png')
+	urllib.urlretrieve(monster, 'img/raw/'+a.username+'_monster_'+str(ts)+'.png')
 
 	return identicon
 
@@ -54,7 +55,10 @@ def createHash():
 		hashjuice = face['Gender'] + str(face['First_Eye_X']) + str(face['First_Eye_Y']) + str(face['FrontalFace_Width']) + str(face['FrontalFace_Height']) + str(face['Second_Eye_X']) + str(face['Second_Eye_Y'])
 		print "Concatenation of facial values", hashjuice
 		print "Hashing facial values.."
-		avatar_hash = hashlib.md5(hashjuice.encode('utf-8')).hexdigest()
+		# avatar_hash = hashlib.md5(hashjuice.encode('utf-8')).hexdigest()
+
+		#Putting string directly into URL
+		avatar_hash = hashjuice
 		print avatar_hash
 
 		username_input = raw_input("What is your name? : ")
